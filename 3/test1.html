@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>끝말잇기</title>
+</head>
+<body>
+
+    <div><span id='order'>1</span>번째 참가자</div>
+    <div>제시어 : <span id='word'></span></div>
+    <input type='text'><button>입력</button>
+
+    <script>
+        const number = prompt('몇명참가할지?');
+
+        const input = document.querySelector('input');
+        const button = document.querySelector('button');
+
+        // 맨 처음 제시한 사람이냐? 를 판별 === 제시어가 있냐? 없냐? 로 가능.
+        // 제시어를 저장할 변수를 만듬.
+        let word = '';
+
+        // 새로 입력한 단어
+        let newWord = '';
+
+        let qwe = document.querySelector('#word');
+
+        const onInput = (e) => {
+            newWord = e.target.value;
+        };
+
+        const onClick = () => {
+            if(!word) {
+                // 제시어가 없다면?
+                // 새로 입력한 단어가 제시어가 된다.
+                word = newWord;
+
+                // 항상 데이터 만들면 화면도 같이 만들어야 한다.
+                qwe.textContent = word;
+
+                // 지워주기.
+                input.value = '';
+            } else {
+                // 제시어가 있다면?
+            }
+        };
+
+        // 콜백함수
+        input.addEventListener('input', onInput);
+        button.addEventListener('click', onClick);
+            
+    </script>
+    
+</body>
+</html>
