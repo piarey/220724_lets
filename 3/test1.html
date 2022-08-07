@@ -13,7 +13,7 @@
     <input type='text'><button>입력</button>
 
     <script>
-        const number = prompt('몇명참가할지?');
+        const number = Number(prompt('몇명참가할지?'));
 
         const input = document.querySelector('input');
         const button = document.querySelector('button');
@@ -25,7 +25,11 @@
         // 새로 입력한 단어
         let newWord = '';
 
-        let qwe = document.querySelector('#word');
+        // 입력한 단어가 적힐 영역.
+        let writeWord = document.querySelector('#word');
+
+        // 현재 몇번째 인지 순서가 적힐 영역.
+        let order = document.querySelector('#order');
 
         const onInput = (e) => {
             newWord = e.target.value;
@@ -36,14 +40,50 @@
                 // 제시어가 없다면?
                 // 새로 입력한 단어가 제시어가 된다.
                 word = newWord;
+                
+                // 텍스트의 내용을 수정하고 싶다면? textContent
+                writeWord.textContent = word;
 
-                // 항상 데이터 만들면 화면도 같이 만들어야 한다.
-                qwe.textContent = word;
-
-                // 지워주기.
+                // input 의 내용을 수정하고 싶다면? value
                 input.value = '';
+
+                // input 에 포커스하고싶다면?
+                input.focus();
+
+                const currentOrder = Number(order.textContent);
+
+                /* number 는 몇명인지 정한 값. currentOrder 는 현재 몇번째인지 값. */
+                /* 간단하게 생각하자. 두 값이 동일하면 1로 초기화 해줘야 하는것임. 
+                    currentOrder === number 거나 currentOrder + 1 > number 이면 조건이 맞음. 
+                */
+                if (currentOrder + 1 > number) {
+                    order.textContent = 1;
+                } else {
+                    order.textContent = currentOrder + 1;
+                }
+
             } else {
                 // 제시어가 있다면?
+
+                // 제시어가 올바르냐?
+                if (word[word.length -1] === newWord[0]) {
+                    word = newWord;
+                    writeWord.textContent = word;
+                    input.value = '';
+                    input.focus();
+
+                    /* 순서도 상 제시어가 비어있는 경우 말고도, 제시어가 있고 올바를때도 몇번째 카운팅이 되어야 함. */
+                    const currentOrder = Number(order.textContent);
+                    if (currentOrder === number) {
+                        order.textContent = 1;
+                    } else {
+                        order.textContent = currentOrder + 1;
+                    }
+
+                // 제시어가 올바르지 않냐?
+                } else {
+                    alert('틀림')
+                }
             }
         };
 
